@@ -97,8 +97,8 @@ export default function Homepage() {
     // A function that delete an item at position idx from the list array
     function deleteItem(idx) {
         Alert.alert(
-            "Delete Item",
-            "Are you sure you want to delete this item?",
+            "Delete task",
+            "Are you sure you want to delete this task?",
             [
                 {
                     text: "Cancel",
