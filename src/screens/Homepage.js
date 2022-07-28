@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     View,
     Text,
@@ -9,14 +9,15 @@ import {
     TouchableOpacity,
     FlatList,
     Alert
-} from "react-native"
-import { Card } from "../components"
+} from "react-native";
+import { Card } from "../components";
 import {
     COLORS,
     SIZES,
     FONTS,
     SHADOW
-} from "../constants"
+} from "../constants";
+import { setItem, setObjectItem, getObjectItem } from '../utils/storage';
 
 const styles = StyleSheet.create({
     container: {
@@ -58,8 +59,9 @@ const styles = StyleSheet.create({
 })
 
 export default function Homepage() {
-
     //State variables
+    //let storedTasks;
+
     const [list, setList] = useState([])
     const [value, setValue] = useState("")
 
@@ -72,6 +74,7 @@ export default function Homepage() {
                     { text: text, isSelected: false } // Adding a JS Object
                 ]
             })
+            setObjectItem("task", list);
             setValue("")
         } else {
             alert("Please type in something!")
@@ -81,7 +84,6 @@ export default function Homepage() {
     // A function that set the value of isSelected based on the state of the checkbox
     function setIsSelected(index, value) {
         let data = []
-
         // Making a deep copy of the list array
         for (let i = 0; i < list.length; i++) {
             if (index === i) {
@@ -91,7 +93,8 @@ export default function Homepage() {
             }
         }
 
-        setList(data) // Setting the new state
+        setList(data);
+        setObjectItem("task", data); // Setting the new state
     }
 
     // A function that delete an item at position idx from the list array
@@ -106,8 +109,13 @@ export default function Homepage() {
                 },
                 {
                     text: "Yes", onPress: () => {
-                        const data = list.filter((item, index) => index !== idx)
-                        setList(data)
+                        const data = list.filter((item, index) => index !== idx);
+                        setList(data);
+
+                        setObjectItem("task", data);
+
+                        getObjectItem("task").then(t => console.log(t))
+
                     }
                 }
             ])
