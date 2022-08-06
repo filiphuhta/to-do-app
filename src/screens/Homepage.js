@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     textBoxWrapper: {
         width: "100%",
         position: "absolute",
-        bottom: 0,
+        top: 40,
         left: 0,
         flexDirection: "row",
         alignItems: "center",
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.secondary,
         height: 42,
         paddingLeft: 15,
-        width: "90%",
+        width: "95%",
         color: COLORS.primary,
         marginRight: 15,
         ...FONTS.h2_semiBold,
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.accent,
         height: 42,
         width: 42,
-        borderRadius: 100,
+        borderRadius: SIZES.textBoxRadius,
         alignItems: "center",
         justifyContent: "center",
     }
@@ -113,11 +113,7 @@ export default function Homepage() {
                     text: "Yes", onPress: () => {
                         const data = list.filter((item, index) => index !== idx);
                         setList(data);
-
                         setObjectItem("tasks", data);
-
-                        getObjectItem("tasks").then(t => console.log(t))
-
                     }
                 }
             ])
@@ -125,21 +121,6 @@ export default function Homepage() {
 
 
     return <View style={styles.container}>
-        <Text style={{
-            ...FONTS.h1_semiBold,
-            color: COLORS.secondary,
-            marginBottom: 15,
-            textAlign: "center"
-        }}>Todays tasks</Text>
-        <FlatList style={{ flex: 1 }}
-            data={list}
-            renderItem={({ item, index }) => <Card data={item}
-                index={index}
-                setIsSelected={setIsSelected}
-                deleteItem={deleteItem} />}
-            keyExtractor={(item, index) => index.toString()}
-        />
-
         <View style={styles.textBoxWrapper}>
             <TextInput
                 style={styles.textInput}
@@ -153,5 +134,27 @@ export default function Homepage() {
                 <Text style={{ fontSize: 34, color: COLORS.secondary }}>+</Text>
             </TouchableOpacity>
         </View>
+        <View style={{
+            marginTop: 90,
+            borderBottomColor: COLORS.secondary,
+            borderBottomWidth: 2,
+        }}>
+            <Text style={{
+
+                ...FONTS.h1_semiBold,
+                color: COLORS.secondary,
+                marginBottom: 15,
+
+
+            }}>Todays tasks</Text>
+        </View>
+        <FlatList style={{ flex: 1, top: 10 }}
+            data={list}
+            renderItem={({ item, index }) => <Card data={item}
+                index={index}
+                setIsSelected={setIsSelected}
+                deleteItem={deleteItem} />}
+            keyExtractor={(item, index) => index.toString()}
+        />
     </View>
 }
