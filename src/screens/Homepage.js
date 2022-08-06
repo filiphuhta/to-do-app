@@ -66,17 +66,17 @@ export default function Homepage() {
     const [value, setValue] = useState("")
 
     useEffect(() => {
-        getObjectItem("task")
+        getObjectItem("tasks")
             .then(t => setList(t.item))
             .catch(e => { console.log(e) })
     }), []
     // A function that add data to the list array
     function addText(text) {
-        let data = list;
+        let data = list ? list : [];
         if (value !== "") {
             data.push({ text: text, isSelected: false });
             setList(data); // Adding a JS Object
-            setObjectItem("task", data);
+            setObjectItem("tasks", data);
             setValue("")
         } else {
             alert("Please type in something!")
@@ -96,7 +96,7 @@ export default function Homepage() {
         }
 
         setList(data);
-        setObjectItem("task", data); // Setting the new state
+        setObjectItem("tasks", data); // Setting the new state
     }
 
     // A function that delete an item at position idx from the list array
@@ -114,9 +114,9 @@ export default function Homepage() {
                         const data = list.filter((item, index) => index !== idx);
                         setList(data);
 
-                        setObjectItem("task", data);
+                        setObjectItem("tasks", data);
 
-                        getObjectItem("task").then(t => console.log(t))
+                        getObjectItem("tasks").then(t => console.log(t))
 
                     }
                 }
