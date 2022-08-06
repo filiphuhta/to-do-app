@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.secondary,
         height: 42,
         paddingLeft: 15,
+        paddingTop: 30,
         width: "90%",
         color: COLORS.primary,
         marginRight: 15,
