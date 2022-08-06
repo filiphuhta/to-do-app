@@ -65,16 +65,18 @@ export default function Homepage() {
     const [list, setList] = useState([])
     const [value, setValue] = useState("")
 
+    useEffect(() => {
+        getObjectItem("task")
+            .then(t => setList(t.item))
+            .catch(e => { console.log(e) })
+    }), []
     // A function that add data to the list array
     function addText(text) {
+        let data = list;
         if (value !== "") {
-            setList(prev => {
-                return [
-                    ...prev,
-                    { text: text, isSelected: false } // Adding a JS Object
-                ]
-            })
-            setObjectItem("task", list);
+            data.push({ text: text, isSelected: false });
+            setList(data); // Adding a JS Object
+            setObjectItem("task", data);
             setValue("")
         } else {
             alert("Please type in something!")
