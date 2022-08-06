@@ -124,7 +124,7 @@ export default function Homepage() {
         <View style={styles.textBoxWrapper}>
             <TextInput
                 style={styles.textInput}
-                placeholder="New Task"
+                placeholder="New task"
                 placeholderTextColor={COLORS.primary}
                 onChangeText={text => setValue(text)}
                 value={value} />
