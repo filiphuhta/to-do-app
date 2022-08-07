@@ -103,10 +103,10 @@ export default function Homepage() {
             .catch(e => { console.log(e) })
     }), []
     // A function that add data to the list array
-    function addText(text) {
+    function addTask(text, date, daily) {
         let data = list ? list : [];
         if (value !== "") {
-            data.push({ text: text, isSelected: false });
+            data.push({ text: text, isSelected: false, date: date, daily: daily });
             setList(data); // Adding a JS Object
             setObjectItem("tasks", data);
             setValue("")
@@ -114,7 +114,7 @@ export default function Homepage() {
             alert("Please type in something!")
         }
 
-        console.log(date);
+        console.log(data);
     }
 
     // A function that set the value of isSelected based on the state of the checkbox
@@ -189,7 +189,7 @@ export default function Homepage() {
             </View>
             <TouchableOpacity
                 style={styles.btn}
-                onPress={() => addText(value)}>
+                onPress={() => addTask(value, date, checkBox)}>
                 <Text style={{ fontSize: 16, color: COLORS.secondary }}>Add task +</Text>
             </TouchableOpacity>
         </View>
@@ -205,7 +205,7 @@ export default function Homepage() {
                 marginBottom: 15,
 
 
-            }}>Todays tasks</Text>
+            }}>Your tasks</Text>
         </View>
         <FlatList style={{ flex: 1, top: 10 }}
             data={list}
