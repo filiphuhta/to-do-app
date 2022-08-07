@@ -17,44 +17,70 @@ import {
     FONTS,
     SHADOW
 } from "../constants";
+import CheckBox from "expo-checkbox";
 import { setItem, setObjectItem, getObjectItem } from '../utils/storage';
+import RNDateTimePicker from '@react-native-community/datetimepicker';
 
 const styles = StyleSheet.create({
     container: {
         paddingTop: Platform.OS === "ios" ? 40 : StatusBar.currentHeight + 10,
         flex: 1,
         backgroundColor: COLORS.primary,
-        padding: SIZES.padding
+        padding: SIZES.padding,
+        width: "100%"
     },
     textBoxWrapper: {
         width: "100%",
-        position: "absolute",
-        top: 40,
-        left: 0,
         flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-between",
-        padding: SIZES.padding
+        flexWrap: "wrap",
+        padding: SIZES.padding,
+        borderRadius: SIZES.textBoxRadius,
+        borderColor: COLORS.secondary,
+        borderWidth: 2,
     },
     textInput: {
         ...SHADOW,
         borderRadius: SIZES.textBoxRadius,
-        backgroundColor: COLORS.secondary,
+        backgroundColor: COLORS.primary,
         height: 42,
         paddingLeft: 15,
-        width: "95%",
-        color: COLORS.primary,
-        marginRight: 15,
+        width: "100%",
+        color: COLORS.secondary,
         ...FONTS.h2_semiBold,
+        borderColor: COLORS.secondary,
+        borderBottomWidth: 2,
+
     },
     btn: {
         ...SHADOW,
-        backgroundColor: COLORS.accent,
+        borderColor: COLORS.secondary,
+        borderWidth: 2,
         height: 42,
         width: 42,
         borderRadius: SIZES.textBoxRadius,
         alignItems: "center",
         justifyContent: "center",
+        marginLeft: 16
+    },
+    datePicker: {
+        width: "45%",
+
+    },
+    checkBoxContainer: {
+        flexDirection: "row",
+        flexWrap: "wrap",
+        width: "100%",
+        padding: SIZES.padding,
+
+    },
+    checkBox: {
+        marginLeft: 16
+    },
+    dateWrapper: {
+        flexDirection: "row",
+        flexWrap: "wrap",
+        width: "100%",
+        padding: SIZES.padding
     }
 })
 
@@ -62,8 +88,13 @@ export default function Homepage() {
     //State variables
     //let storedTasks;
 
-    const [list, setList] = useState([])
-    const [value, setValue] = useState("")
+    const [list, setList] = useState([]);
+    const [value, setValue] = useState("");
+    const [date, setDate] = useState(new Date());
+    const [checkBox, setCheckBox] = useState(false);
+    const _onDateChange = (e, newDate) => {
+        setDate(newDate);
+    };
 
     useEffect(() => {
         getObjectItem("tasks")
@@ -81,6 +112,8 @@ export default function Homepage() {
         } else {
             alert("Please type in something!")
         }
+
+        console.log(date);
     }
 
     // A function that set the value of isSelected based on the state of the checkbox
@@ -125,9 +158,34 @@ export default function Homepage() {
             <TextInput
                 style={styles.textInput}
                 placeholder="New task"
-                placeholderTextColor={COLORS.primary}
+                placeholderTextColor={COLORS.secondary}
                 onChangeText={text => setValue(text)}
                 value={value} />
+            <View style={styles.checkBoxContainer}>
+                <Text style={{
+                    ...FONTS.h3_semiBold,
+                    color: COLORS.secondary,
+                }}>Repeat daily: </Text>
+                <CheckBox
+                    style={styles.checkBox}
+                    value={checkBox}
+                    onValueChange={(value) => setCheckBox(value)}
+                    color={COLORS.secondary}
+                />
+            </View>
+            <View style={styles.dateWrapper}>
+                <Text style={{
+
+                    ...FONTS.h3_semiBold,
+                    color: COLORS.secondary,
+                }}>Due date: </Text>
+                <RNDateTimePicker
+                    style={styles.datePicker}
+                    mode="date"
+                    onChange={_onDateChange}
+                    value={date}
+                    textColor="white" />
+            </View>
             <TouchableOpacity
                 style={styles.btn}
                 onPress={() => addText(value)}>
@@ -135,7 +193,7 @@ export default function Homepage() {
             </TouchableOpacity>
         </View>
         <View style={{
-            marginTop: 90,
+            marginTop: 20,
             borderBottomColor: COLORS.secondary,
             borderBottomWidth: 2,
         }}>

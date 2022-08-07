@@ -1,20 +1,23 @@
 const COLORS = {
     primary: "#FFEEDB",
     secondary: "#0B1D37",
-    accent: "#FFBD9A"
+    accent: "#FFBD9A",
+    grey: "#c7c7cc"
 }
 
 const SIZES = {
-    padding: 19,
+    padding: 16,
     borderRadius: 5,
     textBoxRadius: 5,
     h1: 24,
-    h2: 20
+    h2: 20,
+    h3: 16
 }
 
 const FONTS = {
     h1_semiBold: { fontSize: SIZES.h1 },
-    h2_semiBold: { fontSize: SIZES.h2 }
+    h2_semiBold: { fontSize: SIZES.h2 },
+    h3_semiBold: { fontSize: SIZES.h3 },
 }
 
 const SHADOW = {
