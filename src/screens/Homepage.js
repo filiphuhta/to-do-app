@@ -56,11 +56,12 @@ const styles = StyleSheet.create({
         borderColor: COLORS.secondary,
         borderWidth: 2,
         height: 42,
-        width: 42,
+        width: "90%",
         borderRadius: SIZES.textBoxRadius,
         alignItems: "center",
         justifyContent: "center",
-        marginLeft: 16
+        marginLeft: 16,
+        marginRight: 16
     },
     datePicker: {
         width: "45%",
@@ -189,7 +190,7 @@ export default function Homepage() {
             <TouchableOpacity
                 style={styles.btn}
                 onPress={() => addText(value)}>
-                <Text style={{ fontSize: 34, color: COLORS.secondary }}>+</Text>
+                <Text style={{ fontSize: 16, color: COLORS.secondary }}>Add task +</Text>
             </TouchableOpacity>
         </View>
         <View style={{
