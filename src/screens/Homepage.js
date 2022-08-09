@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: COLORS.primary,
         padding: SIZES.padding,
-        width: "100%"
+        width: "100%",
     },
     textBoxWrapper: {
         width: "100%",
@@ -37,6 +37,7 @@ const styles = StyleSheet.create({
         borderRadius: SIZES.textBoxRadius,
         borderColor: COLORS.secondary,
         borderWidth: 2,
+        maxWidth: 500,
     },
     textInput: {
         ...SHADOW,
@@ -199,13 +200,14 @@ export default function Homepage() {
             marginTop: 20,
             borderBottomColor: COLORS.secondary,
             borderBottomWidth: 2,
+            maxWidth: 500,
         }}>
             <Text style={{
 
                 ...FONTS.h1_semiBold,
                 color: COLORS.secondary,
                 marginBottom: 15,
-
+                
 
             }}>Your tasks</Text>
         </View>
