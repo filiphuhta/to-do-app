@@ -46,14 +46,17 @@ const styles = StyleSheet.create({
 })
 
 export default function Card(props) {
+
     const getCurrentDate = (dueDate) => {
+        const month = ["January", "February", "March", "April",
+            "May", "June", "July", "August",
+            "September", "October", "November", "December"];
         var date = new Date(dueDate).getDate();
-        var month = new Date(dueDate).getMonth() + 1;
+        var monthName = month[new Date(dueDate).getMonth()];
         var year = new Date(dueDate).getFullYear();
 
-        return year + '-' + month + '-' + date;
+        return monthName + ' ' + date + ' [' + year + ']';
     }
-
     const date = getCurrentDate(props.data.date);
 
     return <Pressable style={styles.view}>
@@ -63,12 +66,18 @@ export default function Card(props) {
             color={COLORS.accent}
         />
         <View style={styles.textWrapper}>
-            <Text style={{ ...styles.text, textDecorationLine: props.data.isSelected ? "line-through" : "none" }}>{props.data.text}</Text>
+            <Text style={{ ...styles.text, textDecorationLine: props.data.isSelected ? "line-through" : "none" }}>
+                {props.data.text}
+            </Text>
             <Pressable onPress={() => props.deleteItem(props.index)} style={styles.delete}>
                 <Ionicons name="md-trash" size={24} color={COLORS.accent} />
             </Pressable>
-            <Text style={{ ...styles.date, textDecorationLine: props.data.isSelected ? "line-through" : "none" }}>{date}</Text>
-            <Text style={{ ...styles.repeatText, textDecorationLine: props.data.isSelected ? "line-through" : "none" }}>{props.data.daily ? "(Repeats daily)" : ""}</Text>
+            <Text style={{ ...styles.date, textDecorationLine: props.data.isSelected ? "line-through" : "none" }}>
+                {date}
+            </Text>
+            <Text style={{ ...styles.repeatText, textDecorationLine: props.data.isSelected ? "line-through" : "none" }}>
+                {props.data.daily ? "(Repeats daily)" : ""}
+            </Text>
 
         </View>
 

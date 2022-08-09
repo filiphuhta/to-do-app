@@ -101,9 +101,13 @@ export default function Homepage() {
         getObjectItem("tasks")
             .then(t => setList(t.item))
             .catch(e => { console.log(e) })
-    }), []
+    }), [];
+
+    const updateTasks = (list) => {
+
+    }
     // A function that add data to the list array
-    function addTask(text, date, daily) {
+    const addTask = (text, date, daily) => {
         let data = list ? list : [];
         if (value !== "") {
             data.push({ text: text, isSelected: false, date: date, daily: daily });
@@ -113,12 +117,10 @@ export default function Homepage() {
         } else {
             alert("Please type in something!")
         }
-
-        console.log(data);
     }
 
     // A function that set the value of isSelected based on the state of the checkbox
-    function setIsSelected(index, value) {
+    const setIsSelected = (index, value) => {
         let data = []
         // Making a deep copy of the list array
         for (let i = 0; i < list.length; i++) {
@@ -134,7 +136,7 @@ export default function Homepage() {
     }
 
     // A function that delete an item at position idx from the list array
-    function deleteItem(idx) {
+    const deleteItem = (idx) => {
         Alert.alert(
             "Delete task",
             "Are you sure you want to delete this task?",
