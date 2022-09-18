@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "ToDo_List_App",
-    "slug": "ToDo_List_App",
+    "name": "to-do-app",
+    "slug": "to-do-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -17,7 +17,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "to-do-app"
     },
     "android": {
       "adaptiveIcon": {
