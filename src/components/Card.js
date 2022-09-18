@@ -28,7 +28,6 @@ const styles = StyleSheet.create({
         color: COLORS.primary,
     },
     repeatText: {
-        marginLeft: 16,
         fontSize: 14,
         color: COLORS.primary,
     },
@@ -73,9 +72,11 @@ export default function Card(props) {
             <Pressable onPress={() => props.deleteItem(props.index)} style={styles.delete}>
                 <Ionicons name="md-trash" size={24} color={COLORS.accent} />
             </Pressable>
-            <Text style={{ ...styles.date, textDecorationLine: props.data.isSelected ? "line-through" : "none" }}>
-                {date}
-            </Text>
+            {props.data.daily !== true &&
+                <Text style={{ ...styles.date, textDecorationLine: props.data.isSelected ? "line-through" : "none" }}>
+                    {date}
+                </Text>
+            }
             <Text style={{ ...styles.repeatText, textDecorationLine: props.data.isSelected ? "line-through" : "none" }}>
                 {props.data.daily ? "(Repeats daily)" : ""}
             </Text>

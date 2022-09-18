@@ -99,13 +99,22 @@ export default function Homepage() {
     };
 
     useEffect(() => {
+        let today = new Date();
+        today = today.setHours(0,0,0,0);
         getObjectItem("tasks")
-            .then(t => setList(t.item))
-            .catch(e => { console.log(e) })
+            .then(t => setList(t.item
+                .sort(function (a, b) {
+                    return new Date(a.date) - new Date(b.date);
+                })
+                .filter(d => d.daily === true || new Date(d.date) >= today ))
+            ).catch(e => { console.log(e) });
+        //  updateTasks();
     }), [];
 
-    const updateTasks = (list) => {
-
+    const updateTasks = () => {
+        const data = list.filter((item, index) => item.date < new Date());
+        setList(data);
+        setObjectItem("tasks", data);
     }
     // A function that add data to the list array
     const addTask = (text, date, daily) => {
@@ -207,7 +216,7 @@ export default function Homepage() {
                 ...FONTS.h1_semiBold,
                 color: COLORS.secondary,
                 marginBottom: 15,
-                
+
 
             }}>Your tasks</Text>
         </View>
