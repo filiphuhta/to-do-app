@@ -100,22 +100,17 @@ export default function Homepage() {
 
     useEffect(() => {
         let today = new Date();
-        today = today.setHours(0,0,0,0);
+        today = today.setHours(0, 0, 0, 0);
         getObjectItem("tasks")
             .then(t => setList(t.item
                 .sort(function (a, b) {
                     return new Date(a.date) - new Date(b.date);
                 })
-                .filter(d => d.daily === true || new Date(d.date) >= today ))
-            ).catch(e => { console.log(e) });
+                .filter(d => d.daily === true || new Date(d.date) >= today)))
+            .catch(e => { console.log(e) });
         //  updateTasks();
     }), [];
 
-    const updateTasks = () => {
-        const data = list.filter((item, index) => item.date < new Date());
-        setList(data);
-        setObjectItem("tasks", data);
-    }
     // A function that add data to the list array
     const addTask = (text, date, daily) => {
         let data = list ? list : [];
@@ -186,19 +181,21 @@ export default function Homepage() {
                     color={COLORS.secondary}
                 />
             </View>
-            <View style={styles.dateWrapper}>
-                <Text style={{
+            {!checkBox &&
+                <View style={styles.dateWrapper}>
+                    <Text style={{
 
-                    ...FONTS.h3_semiBold,
-                    color: COLORS.secondary,
-                }}>Due date: </Text>
-                <RNDateTimePicker
-                    style={styles.datePicker}
-                    mode="date"
-                    onChange={_onDateChange}
-                    value={date}
-                    textColor="white" />
-            </View>
+                        ...FONTS.h3_semiBold,
+                        color: COLORS.secondary,
+                    }}>Due date: </Text>
+                    <RNDateTimePicker
+                        style={styles.datePicker}
+                        mode="date"
+                        onChange={_onDateChange}
+                        value={date}
+                        textColor="white" />
+                </View>
+            }
             <TouchableOpacity
                 style={styles.btn}
                 onPress={() => addTask(value, date, checkBox)}>
