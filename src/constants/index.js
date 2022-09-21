@@ -1,6 +1,7 @@
 const COLORS = {
     primary: "#FFEEDB",
     secondary: "#0B1D37",
+    secondaryFaded: "#0B1D37F2",
     accent: "#FFBD9A",
     grey: "#c7c7cc"
 }

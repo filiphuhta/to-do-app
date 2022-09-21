@@ -7,6 +7,7 @@ import { Homepage } from "./src/screens";
 import { ToDoList } from './src/screens/ToDoList';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import {
   COLORS,
   SIZES,
@@ -28,6 +29,7 @@ export default function App() {
       })
     })();
   }, [])
+  
 
 
   if (!fontsLoaded) {
@@ -45,13 +47,18 @@ export default function App() {
               height: 90,
               paddingHorizontal: 5,
               paddingTop: 0,
-              backgroundColor: COLORS.secondary,
+              backgroundColor: COLORS.secondaryFaded,
               position: 'absolute',
               borderTopWidth: 0,
             },
           })}>
           <Tab.Screen name="Current list" component={Homepage} />
-          <Tab.Screen name="To do lists" component={ToDoList} />
+          <Tab.Screen name="To do lists" options={{
+          tabBarLabel: 'Home',
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="md-trash" size={24} color={COLORS.accent} />
+          ),
+        }} component={ToDoList} />
         </Tab.Navigator>
       </NavigationContainer>
     );
