@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Pressable } from "react-native"
 import CheckBox from "expo-checkbox"
-import { SIZES, FONTS, COLORS, SHADOW } from "../constants"
+import { SIZES, FONTS, COLORS, SHADOW } from "../../constants"
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 const styles = StyleSheet.create({

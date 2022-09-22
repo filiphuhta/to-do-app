@@ -10,7 +10,7 @@ import {
     FlatList,
     Alert
 } from "react-native";
-import { Card } from "../../components";
+import { Card } from "../../components/Card";
 import {
     COLORS,
     SIZES,
