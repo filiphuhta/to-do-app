@@ -10,15 +10,15 @@ import {
     FlatList,
     Alert
 } from "react-native";
-import { Card } from "../components";
+import { Card } from "../../components";
 import {
     COLORS,
     SIZES,
     FONTS,
     SHADOW
-} from "../constants";
+} from "../../constants";
 import CheckBox from "expo-checkbox";
-import { setItem, setObjectItem, getObjectItem } from '../utils/storage';
+import { setItem, setObjectItem, getObjectItem } from '../../utils/storage';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
 
 const styles = StyleSheet.create({
