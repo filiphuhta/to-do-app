@@ -44,6 +44,14 @@ export default function ToDoList() {
    const [list, setList] = useState([]);
    //State variables
    //let storedTasks;
+/** 
+   useEffect(() => {
+      getObjectItem("to-do-list")
+         .then(t => setList(t.item))
+            .catch(e => { console.log(e) });
+      //  updateTasks();
+   }), [];
+   */
    const AsyncInput = async () => {
       return new Promise((resolve, reject) => {
          Alert.prompt("Create list",
@@ -64,23 +72,12 @@ export default function ToDoList() {
    }
 
    const addTask = async () => {
-      let data = list ? list : [];
       let userInput = await AsyncInput();
-
       if (userInput) {
-         console.log(userInput);
-         data.push({ name: userInput });
-         setList(data);
+         setList(oldArray => [...oldArray, { name: userInput }]);
+      } else {
+         alert("Please type in a name of the list")
       }
-      /** 
-       if (value !== "") {
-          data.push({ name: text });
-          setList(data); // Adding a JS Object
-          setObjectItem("tasks", data);
-          setValue("")
-       } else {
-          alert("Please type in something!")
-       } */
    }
 
    // A function that delete an item at position idx from the list array
@@ -97,7 +94,7 @@ export default function ToDoList() {
                text: "Yes", onPress: () => {
                   const data = list.filter((item, index) => index !== idx);
                   setList(data);
-                  setObjectItem("tasks", data);
+                  setObjectItem("to-do-list", data);
                }
             }
          ])
