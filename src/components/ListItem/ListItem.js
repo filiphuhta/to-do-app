@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
         borderRadius: SIZES.borderRadius,
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: COLORS.secondary,
+        backgroundColor: COLORS.bgSecondary,
         marginBottom: 15
     },
     text: {

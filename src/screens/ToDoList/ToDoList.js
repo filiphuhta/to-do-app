@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
    container: {
       paddingTop: Platform.OS === "ios" ? 40 : StatusBar.currentHeight + 10,
       flex: 1,
-      backgroundColor: COLORS.primary,
+      backgroundColor: COLORS.bgPrimary,
       padding: SIZES.padding,
       width: "100%",
    },
@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
       padding: SIZES.padding,
       borderRadius: SIZES.textBoxRadius,
       borderColor: COLORS.secondary,
+      backgroundColor: COLORS.bgSecondary,
       borderWidth: 2,
       maxWidth: 500,
    }
@@ -106,7 +107,7 @@ export default function ToDoList() {
             <TouchableOpacity
                style={styles.btn}
                onPress={() => addTask()}>
-               <Text style={{ fontSize: 16, color: COLORS.secondary }}>Add task +</Text>
+               <Text style={{ fontSize: 16, color: COLORS.text }}>Add task +</Text>
             </TouchableOpacity>
          </View>
          <FlatList style={{ flex: 1, top: 10 }}

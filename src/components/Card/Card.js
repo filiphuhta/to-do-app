@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
         borderRadius: SIZES.borderRadius,
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: COLORS.secondary,
+        backgroundColor: COLORS.bgSecondary,
         marginBottom: 15
     },
     text: {
@@ -25,11 +25,11 @@ const styles = StyleSheet.create({
     },
     date: {
         fontSize: 14,
-        color: COLORS.primary,
+        color: COLORS.text,
     },
     repeatText: {
         fontSize: 14,
-        color: COLORS.primary,
+        color: COLORS.text,
     },
     checkbox: {
         marginRight: 15

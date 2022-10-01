@@ -47,7 +47,7 @@ export default function App() {
               height: 90,
               paddingHorizontal: 5,
               paddingTop: 0,
-              backgroundColor: COLORS.secondary,
+              backgroundColor: COLORS.bgSecondary,
               position: 'absolute',
               borderTopWidth: 0,
             },

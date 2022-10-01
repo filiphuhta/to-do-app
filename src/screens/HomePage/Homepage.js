@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     container: {
         paddingTop: Platform.OS === "ios" ? 40 : StatusBar.currentHeight + 10,
         flex: 1,
-        backgroundColor: COLORS.primary,
+        backgroundColor: COLORS.bgPrimary,
         padding: SIZES.padding,
         width: "100%",
     },
@@ -36,17 +36,18 @@ const styles = StyleSheet.create({
         padding: SIZES.padding,
         borderRadius: SIZES.textBoxRadius,
         borderColor: COLORS.secondary,
+        backgroundColor: COLORS.bgSecondary,
         borderWidth: 2,
         maxWidth: 500,
     },
     textInput: {
         ...SHADOW,
         borderRadius: SIZES.textBoxRadius,
-        backgroundColor: COLORS.primary,
+        backgroundColor: COLORS.bgSecondary,
         height: 42,
         paddingLeft: 15,
         width: "100%",
-        color: COLORS.secondary,
+        color: COLORS.text,
         ...FONTS.h2_semiBold,
         borderColor: COLORS.secondary,
         borderBottomWidth: 2,
@@ -166,19 +167,19 @@ export default function Homepage() {
             <TextInput
                 style={styles.textInput}
                 placeholder="New task"
-                placeholderTextColor={COLORS.secondary}
+                placeholderTextColor={COLORS.text}
                 onChangeText={text => setValue(text)}
                 value={value} />
             <View style={styles.checkBoxContainer}>
                 <Text style={{
                     ...FONTS.h3_semiBold,
-                    color: COLORS.secondary,
+                    color: COLORS.text,
                 }}>Repeat daily: </Text>
                 <CheckBox
                     style={styles.checkBox}
                     value={checkBox}
                     onValueChange={(value) => setCheckBox(value)}
-                    color={COLORS.secondary}
+                    color={COLORS.accent}
                 />
             </View>
             {!checkBox &&
@@ -186,20 +187,22 @@ export default function Homepage() {
                     <Text style={{
 
                         ...FONTS.h3_semiBold,
-                        color: COLORS.secondary,
+                        color: COLORS.text,
                     }}>Due date: </Text>
                     <RNDateTimePicker
                         style={styles.datePicker}
                         mode="date"
                         onChange={_onDateChange}
                         value={date}
-                        textColor="white" />
+                        themeVariant="dark"
+                        tintColor={COLORS.accent}
+                        textColor={COLORS.text} />
                 </View>
             }
             <TouchableOpacity
                 style={styles.btn}
                 onPress={() => addTask(value, date, checkBox)}>
-                <Text style={{ fontSize: 16, color: COLORS.secondary }}>Add task +</Text>
+                <Text style={{ fontSize: 16, color: COLORS.text }}>Add task +</Text>
             </TouchableOpacity>
         </View>
         <View style={{
@@ -211,7 +214,7 @@ export default function Homepage() {
             <Text style={{
 
                 ...FONTS.h1_semiBold,
-                color: COLORS.secondary,
+                color: COLORS.text,
                 marginBottom: 15,
 
 
