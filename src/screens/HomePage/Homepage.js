@@ -8,7 +8,9 @@ import {
     TextInput,
     TouchableOpacity,
     FlatList,
-    Alert
+    Alert,
+    Modal,
+    Pressable,
 } from "react-native";
 import { Card } from "../../components/Card";
 import {
@@ -20,6 +22,7 @@ import {
 import CheckBox from "expo-checkbox";
 import { setItem, setObjectItem, getObjectItem } from '../../utils/storage';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 const styles = StyleSheet.create({
     container: {
@@ -38,6 +41,14 @@ const styles = StyleSheet.create({
         borderColor: COLORS.secondary,
         backgroundColor: COLORS.bgSecondary,
         borderWidth: 2,
+        maxWidth: 500,
+    },
+    topWrapper: {
+        flexDirection: "row",
+        flexWrap: "wrap",
+        marginTop: 20,
+        borderBottomColor: COLORS.secondary,
+        borderBottomWidth: 2,
         maxWidth: 500,
     },
     textInput: {
@@ -84,6 +95,36 @@ const styles = StyleSheet.create({
         flexWrap: "wrap",
         width: "100%",
         padding: SIZES.padding
+    },
+    addButton: {
+        borderWidth: 1,
+        borderColor: 'rgba(0,0,0,0.2)',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 50,
+        height: 50,
+        backgroundColor: COLORS.bgSecondary,
+        borderRadius: 100,
+        position: "absolute",
+        right: 0,
+        top: -10
+    },
+    modalButtonContainer: {
+        flexDirection: "row",
+        justifyContent: 'space-evenly',
+        paddingTop: 16,
+
+    },
+    modalButton: {
+        ...SHADOW,
+        borderColor: COLORS.secondary,
+        borderWidth: 2,
+        height: 42,
+        width: "45%",
+        borderRadius: SIZES.textBoxRadius,
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: COLORS.bgSecondary,
     }
 })
 
@@ -91,6 +132,7 @@ export default function Homepage() {
     //State variables
     //let storedTasks;
 
+    const [modalVisible, setModalVisible] = useState(false);
     const [list, setList] = useState([]);
     const [value, setValue] = useState("");
     const [date, setDate] = useState(new Date());
@@ -120,6 +162,7 @@ export default function Homepage() {
             setList(data); // Adding a JS Object
             setObjectItem("tasks", data);
             setValue("")
+            setModalVisible(!modalVisible);
         } else {
             alert("Please type in something!")
         }
@@ -163,54 +206,68 @@ export default function Homepage() {
 
 
     return <View style={styles.container}>
-        <View style={styles.textBoxWrapper}>
-            <TextInput
-                style={styles.textInput}
-                placeholder="New task"
-                placeholderTextColor={COLORS.text}
-                onChangeText={text => setValue(text)}
-                value={value} />
-            <View style={styles.checkBoxContainer}>
-                <Text style={{
-                    ...FONTS.h3_semiBold,
-                    color: COLORS.text,
-                }}>Repeat daily: </Text>
-                <CheckBox
-                    style={styles.checkBox}
-                    value={checkBox}
-                    onValueChange={(value) => setCheckBox(value)}
-                    color={COLORS.accent}
-                />
-            </View>
-            {!checkBox &&
-                <View style={styles.dateWrapper}>
-                    <Text style={{
+        <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => {
+                Alert.alert("Modal has been closed.");
+                setModalVisible(!modalVisible);
+            }}
+        >
+            <View style={styles.container}>
+                <View style={styles.textBoxWrapper}>
+                    <TextInput
+                        style={styles.textInput}
+                        placeholder="New task"
+                        placeholderTextColor={COLORS.text}
+                        onChangeText={text => setValue(text)}
+                        value={value} />
+                    <View style={styles.checkBoxContainer}>
+                        <Text style={{
+                            ...FONTS.h3_semiBold,
+                            color: COLORS.text,
+                        }}>Repeat daily: </Text>
+                        <CheckBox
+                            style={styles.checkBox}
+                            value={checkBox}
+                            onValueChange={(value) => setCheckBox(value)}
+                            color={COLORS.accent}
+                        />
+                    </View>
+                    {!checkBox &&
+                        <View style={styles.dateWrapper}>
+                            <Text style={{
 
-                        ...FONTS.h3_semiBold,
-                        color: COLORS.text,
-                    }}>Due date: </Text>
-                    <RNDateTimePicker
-                        style={styles.datePicker}
-                        mode="date"
-                        onChange={_onDateChange}
-                        value={date}
-                        themeVariant="dark"
-                        tintColor={COLORS.accent}
-                        textColor={COLORS.text} />
+                                ...FONTS.h3_semiBold,
+                                color: COLORS.text,
+                            }}>Due date: </Text>
+                            <RNDateTimePicker
+                                style={styles.datePicker}
+                                mode="date"
+                                onChange={_onDateChange}
+                                value={date}
+                                themeVariant="dark"
+                                tintColor={COLORS.accent}
+                                textColor={COLORS.text} />
+                        </View>
+                    }
+                    <View style={styles.modalButtonContainer}>
+                        <Pressable style={styles.modalButton} onPress={() => setModalVisible(!modalVisible)}>
+                            <Text style={{ color: COLORS.text }}>Cancel</Text>
+                        </Pressable>
+                        <TouchableOpacity
+                            style={styles.modalButton}
+                            onPress={() => addTask(value, date, checkBox)}>
+                            <Text style={{ fontSize: 16, color: COLORS.text }}>Add task +</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
-            }
-            <TouchableOpacity
-                style={styles.btn}
-                onPress={() => addTask(value, date, checkBox)}>
-                <Text style={{ fontSize: 16, color: COLORS.text }}>Add task +</Text>
-            </TouchableOpacity>
-        </View>
-        <View style={{
-            marginTop: 20,
-            borderBottomColor: COLORS.secondary,
-            borderBottomWidth: 2,
-            maxWidth: 500,
-        }}>
+            </View>
+
+        </Modal>
+
+        <View style={styles.topWrapper}>
             <Text style={{
 
                 ...FONTS.h1_semiBold,
@@ -219,6 +276,9 @@ export default function Homepage() {
 
 
             }}>Your tasks</Text>
+            <Pressable style={styles.addButton} onPress={() => setModalVisible(true)}>
+                <Ionicons name="md-add" size={24} color={COLORS.accent} />
+            </Pressable>
         </View>
         <FlatList style={{ flex: 1, top: 10 }}
             data={list}
