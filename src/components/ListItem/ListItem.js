@@ -6,7 +6,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 const styles = StyleSheet.create({
     view: {
         ...SHADOW,
-        width: '100%',
+        width: '47%',
         maxWidth: 500,
         paddingVertical: 10,
         paddingHorizontal: SIZES.padding,
@@ -20,7 +20,9 @@ const styles = StyleSheet.create({
         ...FONTS.h2_semiBold,
         color: COLORS.accent,
         width: "100%",
-        paddingBottom: 4
+        paddingBottom: 4,
+        textAlign: 'center',
+        textAlignVertical: "center"
     },
     date: {
         fontSize: 14,
@@ -31,20 +33,25 @@ const styles = StyleSheet.create({
         color: COLORS.primary,
     },
     textWrapper: {
-        flexDirection: "row",
-        flexWrap: "wrap",
+        justifyContent: "center",
+        alignItems: "center",
         width: "100%",
+        minHeight: 100,
+        maxHeight: 300
     },
     delete: {
         position: "absolute",
-        right: 10,
+        right: -10,
+        top: -8,
     }
 })
 
 export default function ListItem(props) {
-    console.log(props.data);
+    const changeList  = () => {
+        props.navigation.navigate("Current list");
+    }
     return (
-        <Pressable style={styles.view}>
+        <Pressable style={styles.view} onPress={changeList}>
             <View style={styles.textWrapper}>
                 <Text style={styles.text}>
                     {props.data.name}

@@ -64,18 +64,16 @@ const styles = StyleSheet.create({
    }
 })
 
-export default function ToDoList() {
+export default function ToDoList(props) {
    const [list, setList] = useState([]);
 
    useEffect(() => {
       getObjectItem("lists")
          .then(t => {
-            if (t.status === "success") {
-               setList(t.item)
-            }
+            setList(t.item)
          })
          .catch(e => { console.log(e) });
-   },[]);
+   }), [];
 
    const AsyncInput = async () => {
       return new Promise((resolve, reject) => {
@@ -145,9 +143,18 @@ export default function ToDoList() {
                <Ionicons name="md-add" size={24} color={COLORS.accent} />
             </Pressable>
          </View>
-         <FlatList style={{ flex: 1, top: 10 }}
+         <FlatList style={{
+            marginTop: 16
+         }}
+            columnWrapperStyle={{
+               flex: 1,
+               justifyContent: "space-between"
+            }}
+            numColumns={2}
             data={list}
-            renderItem={({ item, index }) => <ListItem data={item}
+            renderItem={({ item, index }) => <ListItem
+               data={item}
+               navigation={props.navigation}
                index={index}
                deleteItem={deleteItem} />}
             keyExtractor={(item, index) => index.toString()}
