@@ -129,14 +129,11 @@ const styles = StyleSheet.create({
 })
 
 export default function Homepage() {
-    //State variables
-    //let storedTasks;
 
     const [modalVisible, setModalVisible] = useState(false);
     const [list, setList] = useState([]);
     const [value, setValue] = useState("");
     const [date, setDate] = useState(new Date());
-    const [checkBox, setCheckBox] = useState(false);
     const _onDateChange = (e, newDate) => {
         setDate(newDate);
     };
@@ -151,14 +148,12 @@ export default function Homepage() {
                 })
                 .filter(d => d.daily === true || new Date(d.date) >= today)))
             .catch(e => { console.log(e) });
-        //  updateTasks();
     }), [];
 
-    // A function that add data to the list array
-    const addTask = (text, date, daily) => {
+    const addTask = (text, date) => {
         let data = list ? list : [];
         if (value !== "") {
-            data.push({ text: text, isSelected: false, date: date, daily: daily });
+            data.push({ text: text, isSelected: false, date: date });
             setList(data); // Adding a JS Object
             setObjectItem("tasks", data);
             setValue("")
@@ -168,7 +163,6 @@ export default function Homepage() {
         }
     }
 
-    // A function that set the value of isSelected based on the state of the checkbox
     const setIsSelected = (index, value) => {
         let data = []
         // Making a deep copy of the list array
@@ -181,7 +175,7 @@ export default function Homepage() {
         }
 
         setList(data);
-        setObjectItem("tasks", data); // Setting the new state
+        setObjectItem("tasks", data);
     }
 
     // A function that delete an item at position idx from the list array
@@ -204,7 +198,6 @@ export default function Homepage() {
             ])
     }
 
-
     return <View style={styles.container}>
         <Modal
             animationType="slide"
@@ -223,42 +216,29 @@ export default function Homepage() {
                         placeholderTextColor={COLORS.text}
                         onChangeText={text => setValue(text)}
                         value={value} />
-                    <View style={styles.checkBoxContainer}>
+                    <View style={styles.dateWrapper}>
                         <Text style={{
+                           paddingTop: 8,
                             ...FONTS.h3_semiBold,
                             color: COLORS.text,
-                        }}>Repeat daily: </Text>
-                        <CheckBox
-                            style={styles.checkBox}
-                            value={checkBox}
-                            onValueChange={(value) => setCheckBox(value)}
-                            color={COLORS.accent}
-                        />
+                        }}>Due date: </Text>
+                        <RNDateTimePicker
+                            style={styles.datePicker}
+                            mode="date"
+                            onChange={_onDateChange}
+                            value={date}
+                            themeVariant="dark"
+                            tintColor={COLORS.accent}
+                            textColor={COLORS.text} />
                     </View>
-                    {!checkBox &&
-                        <View style={styles.dateWrapper}>
-                            <Text style={{
 
-                                ...FONTS.h3_semiBold,
-                                color: COLORS.text,
-                            }}>Due date: </Text>
-                            <RNDateTimePicker
-                                style={styles.datePicker}
-                                mode="date"
-                                onChange={_onDateChange}
-                                value={date}
-                                themeVariant="dark"
-                                tintColor={COLORS.accent}
-                                textColor={COLORS.text} />
-                        </View>
-                    }
                     <View style={styles.modalButtonContainer}>
                         <Pressable style={styles.modalButton} onPress={() => setModalVisible(!modalVisible)}>
                             <Text style={{ color: COLORS.text }}>Cancel</Text>
                         </Pressable>
                         <TouchableOpacity
                             style={styles.modalButton}
-                            onPress={() => addTask(value, date, checkBox)}>
+                            onPress={() => addTask(value, date)}>
                             <Text style={{ fontSize: 16, color: COLORS.text }}>Add task +</Text>
                         </TouchableOpacity>
                     </View>
