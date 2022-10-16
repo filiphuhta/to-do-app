@@ -8,7 +8,6 @@ const styles = StyleSheet.create({
     view: {
         ...SHADOW,
         width: '100%',
-        maxWidth: 500,
         paddingVertical: 10,
         paddingHorizontal: SIZES.padding,
         borderRadius: SIZES.borderRadius,

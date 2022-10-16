@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
         borderColor: COLORS.secondary,
         backgroundColor: COLORS.bgSecondary,
         borderWidth: 2,
-        maxWidth: 500,
+
     },
     topWrapper: {
         flexDirection: "row",
@@ -49,7 +49,6 @@ const styles = StyleSheet.create({
         marginTop: 20,
         borderBottomColor: COLORS.secondary,
         borderBottomWidth: 2,
-        maxWidth: 500,
     },
     textInput: {
         ...SHADOW,
